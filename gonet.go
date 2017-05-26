@@ -26,7 +26,7 @@ type NeuralNet struct {
 	InData []float64
 }
 
-func SaveNet(filename string, network *NeuralNet) (error) {
+func SaveNet(filename string, network NeuralNet) (error) {
 	data := []string{fmt.Sprintf("%d;%d", len(network.Neurons), len(network.InData))}
 	for neuron_id, neuron := range network.Neurons {
 		base_info := fmt.Sprintf("%d;%d", neuron_id, neuron.LayerID)
@@ -66,7 +66,7 @@ func CreateEmpty(layers []int, num_inputs int) (NeuralNet) {
 	return result
 }
 
-func AppendNeuronInput(n *Neuron, input *NeuronInput, weightrandom bool ) (Neuron) {
+func AppendNeuronInput(n Neuron, input NeuronInput, weightrandom bool ) (Neuron) {
 	if (weightrandom) {
 		input.Weight = GetFloat64(0.5, 1)
 	}
@@ -75,7 +75,7 @@ func AppendNeuronInput(n *Neuron, input *NeuronInput, weightrandom bool ) (Neuro
 }
 
 
-func CreateNeuron(thenet *NeuralNet, n Neuron) (NeuralNet) {
+func CreateNeuron(thenet NeuralNet, n Neuron) (NeuralNet) {
 	if (n.LayerID == 0) {
 		l := len(thenet.InData)
 		for i:=0; i<l; i++ {
